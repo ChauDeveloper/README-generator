@@ -1,8 +1,12 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
+
+// const generateReadme = require('./src/content-template')
+
 // TODO: Create an array of questions for user input
-const questions = [
+const questions =[
     {
         type: 'input',
       name: 'title',
@@ -119,7 +123,7 @@ const questions = [
 
       {
         type: 'checkbox',
-        name: 'languages',
+        name: 'license',
         message: 'Choose a license:',
         choices: ['Apache License 2.0', 'GNU GPLv3','GNULv2', 'MIT', 'ISC' ]
       },
@@ -150,14 +154,15 @@ const questions = [
             return false;
           }
         }
-      },
-];
+      },   
+  ]
+
 
 // TODO: Create a function to write README file
 // function writeToFile(fileName, data) {}
 const writetoFile = fileContent => {
     return new Promise ((resolve, reject) => {
-        fs.writetoFile ('./README.md', fileContent, err => {
+        fs.writeFile ('./dist/README.md', fileContent, err => {
             if (err) {
                 reject (err);
                 return;
@@ -170,12 +175,32 @@ const writetoFile = fileContent => {
     })
 }
 
-module.exports = {
-      writetoFile: writetoFile,
-    };
+// module.exports = {
+//       writeFile: writeFile,
+//     };
 
-// TODO: Create a function to initialize app
-function init() {}
+// // TODO: Create a function to initialize app
+// function init() {
+//   questions() 
+//   .then(data => {
+//       console.log(data);
+//     })
+//   .catch(err => {
+//       console.log(err);
+//     });
+  
+// }
 
-// Function call to initialize app
+
+function init() {
+  inquirer.prompt(questions)
+      .then ((data) => {
+          console.log(data)
+          writetoFile(generateMarkdown({ ...data }));
+          console.log("README file is created under .dist/README.md!")
+      });
+}
+
+// // Function call to initialize app
 init();
+
