@@ -1,3 +1,3 @@
-# Professional README Generator Starter Code
+# README Generator 
 
-[How to create a Professional README](./readme-guide.md)
+Sceencastify link for demonstration: https://watch.screencastify.com/v/Jq6SbzUe0S5KwUWbwmK5
